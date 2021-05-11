@@ -1,0 +1,6 @@
+Kyoto, Edo, 307
+Kyoto, Shimosuwa,180
+Shimosuwa, Edo,134
+Edo,Utsunomiya,65
+Utsunomiya,Nikko,25
+Utsunomiya,Shirakawa,62

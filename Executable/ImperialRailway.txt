@@ -1,0 +1,7 @@
+Kyoto,Kumamoto, 385
+Kyoto,Tokyo,305
+Tokyo,Utsunomiya,65
+Utsunomiya,Fukushima,127
+Fukushima,Aomori,203
+Utsunomiya,Niigata,100
+Utsunomiya,Nikko,25
