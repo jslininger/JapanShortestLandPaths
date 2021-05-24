@@ -9,6 +9,9 @@ AVG_MODERN_TRAIN = 150
 
 speeds = [AVG_WALKING_SPEED, AVG_MEIJI_TRAIN, AVG_MODERN_TRAIN]
 
+def milesPerTimePeriod(time, timePeriod):
+    return round((time / 60) * speeds[timePeriod])
+
 def minutesPerTimePeriod(miles, timePeriod):
     speed = speeds[timePeriod]
     return round((miles / speed) * 60)

@@ -2,7 +2,7 @@ import UI
 
 def run():
     root = UI.tk.Tk()
-    root.title("Fastest Land Routes through Japan from the Tokugawa Period to Modern Day")
+    root.title("Find Your Way in Japan, Past and Present!")
     root.geometry('720x720')
 
     app = UI.App(master=root)

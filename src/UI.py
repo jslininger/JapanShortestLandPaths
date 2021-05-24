@@ -11,6 +11,7 @@ class App(tk.Frame):
         self.pack()
         self.createRoads()
         self.periodno = ts.TOKUGAWA
+        #self.images = [tk.PhotoImage(file="C:\\Users\\Jack\\3D Objects\\HIS70A\\Executables\\fiveroads.gif"),tk.PhotoImage(file="C:\\Users\\Jack\\3D Objects\\HIS70A\\Executables\\ImperialRailways.gif"),tk.PhotoImage(file="C:\\Users\\Jack\\3D Objects\\HIS70A\\Executables\\shinkasen.gif")]
         self.images = [tk.PhotoImage(file="fiveroads.gif"),tk.PhotoImage(file="ImperialRailways.gif"),tk.PhotoImage(file="shinkasen.gif")]
         self.periods = {"Tokugawa":0,"Meiji":1,"Modern":2}
         self.days = 0
@@ -20,7 +21,9 @@ class App(tk.Frame):
         self.createWidgets()
 
     def createRoads(self):
-        #fiveRoads = rg.createRoadsFromFile("C:\\Users\\Jack\\3D Objects\\HIS70A\\src\\FiveRoads.txt")
+        #fiveRoads = rg.createRoadsFromFile("C:\\Users\\Jack\\3D Objects\\HIS70A\\Executables\\FiveRoads.txt")
+        # shinkansen = rg.createRoadsFromFile("C:\\Users\\Jack\\3D Objects\\HIS70A\\Executables\\Shinkansen.txt")
+        # imperial = rg.createRoadsFromFile("C:\\Users\\Jack\\3D Objects\\HIS70A\\Executables\\ImperialRailway.txt")
         fiveRoads = rg.createRoadsFromFile("FiveRoads.txt")
         shinkansen = rg.createRoadsFromFile("Shinkansen.txt")
         imperial = rg.createRoadsFromFile("ImperialRailway.txt")
@@ -42,6 +45,12 @@ class App(tk.Frame):
         self.periodsMenu.menu.add_radiobutton(label = "Modern", variable=self.period)
         self.periodsMenu.pack(side="left")
         self.pathtime = tk.Label(self)
+        
+        self.pathdistance = tk.Label(self)
+        
+        self.path = tk.Label(self)
+        self.path.pack(side='bottom')
+        self.pathdistance.pack(side='bottom')
         self.pathtime.pack(side='bottom')
 
         self.period.set("Tokugawa")
@@ -62,6 +71,8 @@ class App(tk.Frame):
                 self.endMenu.menu.add_radiobutton(label = town, variable=self.end)
         self.days, self.hours, self.minutes = 0,0,0
         self.pathtime.config(text="Shortest time estimate for the " + self.period.get() + " Era is " + str(self.days) + " Days, " + str(self.hours) + " Hours, " + str(self.minutes) + " Minutes")
+        self.pathdistance.config(text="Distance: 0 miles")
+        self.path.config(text="Path from start to end: ")
 
     def rightWidgets(self):
         self.getTime = tk.Button(self,width=12,height=1)
@@ -88,6 +99,9 @@ class App(tk.Frame):
         path, time = pf.shortestPath(self.start.get(),self.end.get(),roads)
         self.days, self.hours, self.minutes = ts.minutesToMore(time)
         self.pathtime.config(text="Shortest time estimate for the " + self.period.get() + " Era is " + str(self.days) + " Days, " + str(self.hours) + " Hours, " + str(self.minutes) + " Minutes")
+        self.pathdistance.config(text="Distance: " + str(ts.milesPerTimePeriod(time,self.periodno)) + " miles")
+        pathtext = "->".join(path)
+        self.path.config(text="Path from start to end: " + pathtext)
 
     def deleteAllTowns(self):
         for town in self.roadtimes[self.periodno]:
