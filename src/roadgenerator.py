@@ -3,8 +3,8 @@ def createRoadsFromFile(filename):
     try:
         file = open(filename)
     except FileNotFoundError:
-        print("nothing")
-        return
+        # print("nothing")
+        return None
     result = {}
     for line in file:
         start, end, length = line.split(",")

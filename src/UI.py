@@ -20,17 +20,19 @@ class App(tk.Frame):
         self.createWidgets()
 
     def createRoads(self):
+        #fiveRoads = rg.createRoadsFromFile("C:\\Users\\Jack\\3D Objects\\HIS70A\\src\\FiveRoads.txt")
         fiveRoads = rg.createRoadsFromFile("FiveRoads.txt")
         shinkansen = rg.createRoadsFromFile("Shinkansen.txt")
         imperial = rg.createRoadsFromFile("ImperialRailway.txt")
         self.roadtimes = [ts.buildGraphFromRoadLengths(fiveRoads, ts.TOKUGAWA), ts.buildGraphFromRoadLengths(imperial, ts.MEIJI), ts.buildGraphFromRoadLengths(shinkansen, ts.MODERN)]
 
     def createWidgets(self):
-        self.img = tk.PhotoImage(file="fiveroads.gif")
+        #self.img = tk.PhotoImage(file="fiveroads.gif")
+        self.img = self.images[0]
         self.map = tk.Label(self,image = self.img)
         self.map.pack(side = "top")
 
-        self.periodsMenu = tk.Menubutton(self, text="Period",relief=tk.RAISED,direction='left')
+        self.periodsMenu = tk.Menubutton(self, text="Period",width=6,height=1,relief=tk.RAISED,direction='left')
         self.periodsMenu.menu = tk.Menu(self.periodsMenu, tearoff=0)
         self.periodsMenu['menu'] = self.periodsMenu.menu
         self.period = tk.StringVar()
@@ -47,7 +49,7 @@ class App(tk.Frame):
         self.rightWidgets()
 
     def changePeriod(self, *args):
-        print(self.period.get())
+        #print(self.period.get())
         if self.startMenu != None:
             self.deleteAllTowns()
         self.periodno = self.periods[self.period.get()]
@@ -62,23 +64,24 @@ class App(tk.Frame):
         self.pathtime.config(text="Shortest time estimate for the " + self.period.get() + " Era is " + str(self.days) + " Days, " + str(self.hours) + " Hours, " + str(self.minutes) + " Minutes")
 
     def rightWidgets(self):
-        self.startMenu = tk.Menubutton(self, text="Start Town",relief=tk.RAISED,direction='right')
+        self.getTime = tk.Button(self,width=12,height=1)
+        self.getTime["text"] = "Find fastest time"
+        self.getTime["command"] = self.search
+        self.getTime.pack(side="bottom")
+
+        self.startMenu = tk.Menubutton(self, text="Start Town",width=12,height=1,relief=tk.RAISED,direction='right')
         self.startMenu.menu = tk.Menu(self.startMenu, tearoff=0)
         self.startMenu['menu'] = self.startMenu.menu
         self.start = tk.StringVar()
-        self.endMenu = tk.Menubutton(self, text="End Town",relief=tk.RAISED,direction='right')
+        self.endMenu = tk.Menubutton(self, text="End Town",width=12,height=1,relief=tk.RAISED,direction='right')
         self.endMenu.menu = tk.Menu(self.endMenu, tearoff=0)
         self.endMenu['menu'] = self.endMenu.menu
         self.end = tk.StringVar()
         for town in self.roadtimes[self.periodno]:
             self.startMenu.menu.add_radiobutton(label = town, variable=self.start)
             self.endMenu.menu.add_radiobutton(label = town, variable=self.end)
-        self.startMenu.pack(side="bottom")
         self.endMenu.pack(side="bottom")
-        self.getTime = tk.Button(self)
-        self.getTime["text"] = "Find fastest time"
-        self.getTime["command"] = self.search
-        self.getTime.pack(side="bottom")
+        self.startMenu.pack(side="bottom")
 
     def search(self):
         roads = copy.deepcopy(self.roadtimes[self.periodno])

@@ -1,0 +1,9 @@
+Tokyo,Kyoto,305
+Kyoto,Kumamoto,380
+Tokyo,Takasaki,60
+Takasaki,Nagano,65
+Takasaki,Niigata,105
+Tokyo,Utsunomiya,65
+Utsunomiya,Shin-Shirakawa,62
+Shin-Shirakawa,Fukushima,65
+Fukushima,Shin-Aomori,200
